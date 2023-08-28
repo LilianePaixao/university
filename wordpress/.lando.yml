@@ -1,0 +1,15 @@
+name: my-first-wordpress-app
+recipe: wordpress
+config:
+  webroot: .
+  php: '8.2'
+services: 
+  pma:
+    type: phpmyadmin
+    hosts:
+      - database
+    overrides:
+      environment:
+        PMA_HOST: database
+        PMA_USER: wordpress
+        PMA_PASSWORD: wordpress
