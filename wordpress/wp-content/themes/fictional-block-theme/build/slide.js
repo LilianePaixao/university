@@ -149,6 +149,9 @@ __webpack_require__.r(__webpack_exports__);
     align: ["full"]
   },
   attributes: {
+    themeimage: {
+      type: "string"
+    },
     align: {
       type: "string",
       default: "full"
@@ -166,6 +169,13 @@ __webpack_require__.r(__webpack_exports__);
 });
 function EditComponent(props) {
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (props.attributes.themeimage) {
+      props.setAttributes({
+        imgURL: `${slide.themeimagepath}${props.attributes.themeimage}`
+      });
+    }
+  }, []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (props.attributes.imgID) {
       async function go() {
         const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
@@ -173,6 +183,7 @@ function EditComponent(props) {
           method: "GET"
         });
         props.setAttributes({
+          themeimage: "",
           imgURL: response.media_details.sizes.pageBanner.source_url
         });
       }
@@ -198,17 +209,17 @@ function EditComponent(props) {
       }, "Choose Image");
     }
   }))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "page-banner"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "page-banner__bg-image",
+    className: "hero-slider__slide",
     style: {
       backgroundImage: `url('${props.attributes.imgURL}')`
     }
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "page-banner__content container t-center c-white"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "hero-slider__interior container"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "hero-slider__overlay t-center"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, {
     allowedBlocks: ["ourblocktheme/genericheading", "ourblocktheme/genericbutton"]
-  }))));
+  })))));
 }
 function SaveComponent() {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks.Content, null);

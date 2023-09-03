@@ -1,8 +1,6 @@
 <?php
-  
-  get_header();
 
-  while(have_posts()) {
+while(have_posts()) {
     the_post(); 
     pageBanner();
     ?>
@@ -21,8 +19,8 @@
         </p>
       </div>
 
-     <?php }
-    ?>
+     <?php } ?>
+    
       <?php 
       $testArray = get_pages(array(
         'child_of' => get_the_ID()
@@ -50,28 +48,8 @@
       
      
       <div class="generic-content">
-        <?php the_content(); 
-
-        $skyColorValue = sanitize_text_field(get_query_var('skyColor'));
-        $grassColorValue = sanitize_text_field(get_query_var('grassColor'));
-        
-        if ($skyColorValue == 'blue' AND $grassColorValue == 'green') {
-          echo '<p>The sky is blue today and the grass is green. Life is good.</p>';
-        }
-        
-        ?>
-
-        <form method="get">
-          <input type="text" name="skyColor" placeholder="Sky color" >
-          <input type="text" name="grassColor" placeholder="Grass color" >
-          <button>Submit</button>
-        </form>
-
+        <?php the_content(); ?>
       </div>
     </div>
   
-  <?php } 
-
-  get_footer();
-  
-  ?>
+  <?php } ?>

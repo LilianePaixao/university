@@ -10,6 +10,7 @@ registerBlockType("ourblocktheme/slide", {
     align: ["full"]
   },
   attributes: {
+    themeimage: {type: "string"},
     align: { type: "string", default: "full" },
     imgID: {type:"number"},
     imgURL: {type:"string", default: window.banner.fallbackimage}
@@ -20,6 +21,12 @@ registerBlockType("ourblocktheme/slide", {
 })
 
 function EditComponent(props) {
+  useEffect(function(){
+    if (props.attributes.themeimage) {
+      props.setAttributes({imgURL: `${slide.themeimagepath}${props.attributes.themeimage}`})
+    }
+  } , [])
+
   useEffect(
     function() {
       if (props.attributes.imgID) {
@@ -28,7 +35,7 @@ function EditComponent(props) {
             path: `/wp/v2/media/${props.attributes.imgID}`,
             method: "GET"
       })
-      props.setAttributes({imgURL: response.media_details.sizes.pageBanner.source_url})
+      props.setAttributes({ themeimage: "", imgURL: response.media_details.sizes.pageBanner.source_url})
     }
     go()
   }
@@ -55,12 +62,14 @@ function onFileSelect(x) {
           </PanelRow>
         </PanelBody>
       </InspectorControls>
-      <div className="page-banner">
-      <div className="page-banner__bg-image" style={{ backgroundImage: `url('${props.attributes.imgURL}')` }}></div>
-      <div className="page-banner__content container t-center c-white">
-        <InnerBlocks allowedBlocks={["ourblocktheme/genericheading","ourblocktheme/genericbutton"]} />
+     
+      <div className="hero-slider__slide" style={{ backgroundImage: `url('${props.attributes.imgURL}')` }}>
+        <div className="hero-slider__interior container">
+          <div className="hero-slider__overlay t-center">
+            <InnerBlocks allowedBlocks={["ourblocktheme/genericheading","ourblocktheme/genericbutton"]} />
+          </div>
+        </div>          
       </div>
-    </div>
     </>
   )
 }
